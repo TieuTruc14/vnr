@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.TrainReference" table="tbl_train_reference">
+        <id name="id" type="string" column="id" length="64">
+            <generator class="assigned" />
+        </id>
+        <property type="string" name="name" column="name" not-null="true" lazy="false" unique="false" />
+
+        <property column="classification"   name="classification"  type="int" />
+        <property column="priority"         name="priority"  type="int" />
+        <property column="departureTime"    name="departureTime"  type="long" />
+	</class>
+</hibernate-mapping>

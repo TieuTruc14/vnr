@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.eposi.vnr.model.Workbench" table="tbl_workbench">
+        <id name="id" type="int" column="id" >
+            <generator class="increment" />
+        </id>
+        <property type="string" name="name" column="name" not-null="true" lazy="false" unique="false" />
+        <property type="date" name="timeLock" column="timeLock"  />
+
+    </class>
+</hibernate-mapping>

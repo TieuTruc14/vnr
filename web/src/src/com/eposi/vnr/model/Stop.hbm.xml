@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.Stop" table="tbl_stop">
+        <id name="id" column="id" type="long">
+            <generator class="assigned" />
+        </id>
+
+        <many-to-one name="stationStage" class="com.eposi.vnr.model.StationStage" lazy="false" cascade="none" column="stationStage" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="train" class="com.eposi.vnr.model.Train" lazy="false" cascade="none" column="train" unique="false" not-null="false" not-found="ignore" />
+        <property column="arrivalTime"   name="arrivalTime"   type="long"/>
+        <property column="departureTime" name="departureTime" type="long" />
+        <property column="wait"          name="wait"          type="int" />
+        <property column="vehicle"       name="vehicle"       type="string" />
+	</class>
+</hibernate-mapping>

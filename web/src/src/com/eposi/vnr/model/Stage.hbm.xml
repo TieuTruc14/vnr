@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.Stage" table="tbl_stage">
+        <id name="id" type="string" column="id" length="64">
+            <generator class="assigned" />
+        </id>
+
+        <property type="string" name="name" column="name" not-null="true" lazy="false" unique="false" />
+        <property column="stt" name="stt" type="int" />
+        <many-to-one name="workbench" column="workbench" class="com.eposi.vnr.model.Workbench" lazy="false" cascade="none"  unique="false" not-null="true" not-found="ignore" />
+        <property name="arrangement" type="boolean" column="arrangement" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.eposi.vnr.model.StationStage" table="tbl_station_stage">
+        <id name="id" column="id" type="string">
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="station" class="com.eposi.vnr.model.Station" lazy="false" cascade="none" column="station" unique="false" not-null="true" not-found="ignore" />
+        <many-to-one name="stage"   class="com.eposi.vnr.model.Stage"   lazy="false" cascade="none" column="stage" unique="false" not-null="true" not-found="ignore" />
+        <property type="string" column="km" name="km" />
+        <property column="distance" name="distance" type="int" />
+    </class>
+</hibernate-mapping>

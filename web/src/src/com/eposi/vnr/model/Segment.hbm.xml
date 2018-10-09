@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.Segment" table="tbl_segment">
+		<id name="id" column="id" type="long">
+			<generator class="increment" />
+		</id>
+        <property column="name"   name="name"   type="java.lang.String"/>
+        <many-to-one name="stationA" class="com.eposi.vnr.model.Station" lazy="false" cascade="none" column="stationA" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="stationB" class="com.eposi.vnr.model.Station" lazy="false" cascade="none" column="stationB" unique="false" not-null="false" not-found="ignore" />
+        <property column="distance"  name="distance"   type="double"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="default" template="/WEB-INF/html/layout.default.jsp">
+		<put-attribute name="header" value="/WEB-INF/html/header.jsp" />
+        <put-attribute name="leftpanel" value="/WEB-INF/html/leftpanel.jsp" />
+		<put-attribute name="page" value="/WEB-INF/html/blank.jsp" />
+	</definition>
+    <definition name="defaultPrint" template="/WEB-INF/html/layout.print.jsp">
+        <put-attribute name="page" value="/WEB-INF/html/blank.jsp" />
+    </definition>
+
+    <definition name="welcome" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/welcome.jsp" />
+    </definition>
+    <definition name="scheduling.daily" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/daily.jsp" />
+    </definition>
+    <definition name="scheduling.daily.print" extends="defaultPrint" >
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/daily.print.jsp" />
+    </definition>
+    <definition name="scheduling.daily.addTrains" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/daily.addTrains.jsp" />
+    </definition>
+    <definition name="scheduling.daily.addTrains.save" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/daily.addTrains.save.jsp" />
+    </definition>
+    <definition name="scheduling.daily.deleteTrains" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/daily.deleteTrains.jsp" />
+    </definition>
+    <definition name="scheduling.detect.conflicts" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/detect.conflicts.jsp" />
+    </definition>
+    <definition name="scheduling.trainReference.listing" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/trainReference.listing.jsp" />
+    </definition>
+    <definition name="scheduling.trainReference.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/trainReference.detail.jsp" />
+    </definition>
+    <definition name="scheduling.trainReference.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/trainReference.add.jsp" />
+    </definition>
+    <definition name="scheduling.trainReference.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/trainReference.edit.jsp" />
+    </definition>
+    <definition name="scheduling.stopReference.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/stopReference.add.jsp" />
+    </definition>
+    <definition name="scheduling.stopReference.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/scheduling/stopReference.edit.jsp" />
+    </definition>
+
+
+
+    <!--Station-->
+
+    <definition name="infrastructure.station" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/station/stations.jsp" />
+    </definition>
+
+    <definition name="infrastructure.station.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/station/station.edit.jsp" />
+    </definition>
+
+    <definition name="infrastructure.station.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/station/station.addnew.jsp" />
+    </definition>
+    <!--End station-->
+
+    <!--Train-->
+    <definition name="infrastructure.train" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/train/trains.jsp" />
+    </definition>
+
+    <definition name="infrastructure.train.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/train/train.edit.jsp" />
+    </definition>
+
+    <definition name="infrastructure.train.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/train/train.addnew.jsp" />
+    </definition>
+    <!--End train-->
+
+    <!--Segment-->
+
+    <definition name="infrastructure.segment" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/segment/segments.jsp" />
+    </definition>
+
+    <definition name="infrastructure.segment.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/segment/segment.edit.jsp" />
+    </definition>
+
+    <definition name="infrastructure.segment.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/segment/segment.addnew.jsp" />
+    </definition>
+    <!--End segment-->
+
+    <!--Plan-->
+
+    <definition name="infrastructure.plan" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/plan/plans.jsp" />
+    </definition>
+
+    <definition name="infrastructure.plan.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/plan/plan.addnew.jsp" />
+    </definition>
+
+    <definition name="infrastructure.plan.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/plan/plan.edit.jsp" />
+    </definition>
+
+    <!--End plan-->
+
+    <!--Stage-->
+    <definition name="infrastructure.stages" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stage/stages.jsp" />
+    </definition>
+
+    <definition name="infrastructure.stage.detail" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stage/stage.detail.jsp" />
+    </definition>
+
+
+
+    <definition name="infrastructure.stage.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stage/stage.edit.jsp" />
+    </definition>
+
+    <definition name="infrastructure.stage.addnew" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stage/stage.addnew.jsp" />
+    </definition>
+    <!--End stage-->
+    <!--StationStage-->
+    <definition name="infrastructure.station_stages" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stationStage/station.stages.jsp" />
+    </definition>
+
+    <definition name="infrastructure.station_stage.edit" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stationStage/station.stage.edit.jsp" />
+    </definition>
+
+    <definition name="infrastructure.station_stage.add" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/stationStage/station.stage.add.jsp" />
+    </definition>
+    <!--End Station_stage-->
+    <!--Label-->
+
+    <definition name="infrastructure.labels" extends="default">
+        <put-attribute name="page" value="/WEB-INF/html/infrastructure/label/labels.jsp" />
+    </definition>
+
+    <!--End Label-->
+
+</tiles-definitions> 

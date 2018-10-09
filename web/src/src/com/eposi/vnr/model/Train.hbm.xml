@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.Train" table="tbl_train">
+		<id name="id" column="id" type="long">
+			<generator class="assigned" />
+		</id>
+        <many-to-one name="trainReference"        class="com.eposi.vnr.model.TrainReference"   lazy="false" cascade="none" column="trainReference" unique="false" not-null="false" not-found="ignore" />
+        <property column="begintime"     name="beginTime"   type="timestamp" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.eposi.vnr.model.StopReference" table="tbl_stop_reference">
+		<id name="id" column="id" type="long">
+			<generator class="increment" />
+		</id>
+        <!--<many-to-one name="station" class="com.eposi.vnr.model.Station" lazy="false" cascade="none" column="station" unique="false" not-null="false" not-found="ignore" />-->
+        <many-to-one name="stationStage" class="com.eposi.vnr.model.StationStage" lazy="false" cascade="none" column="stationStage" unique="false" not-null="false" not-found="ignore" />
+        <many-to-one name="trainReference" class="com.eposi.vnr.model.TrainReference" lazy="false" cascade="none" column="trainReference" unique="false" not-null="false" not-found="ignore" />
+        <!--<many-to-one name="stage" class="com.eposi.vnr.model.Stage" lazy="false" cascade="none" column="stage" unique="false" not-null="false" not-found="ignore" />-->
+        <property column="arrivalTime"   name="arrivalTime"   type="long"/>
+        <property column="departureTime" name="departureTime" type="long" />
+        <property column="wait"          name="wait"          type="int" />
+        <!--<property column="orderStation"  name="orderStation"   type="int" />-->
+	</class>
+</hibernate-mapping>

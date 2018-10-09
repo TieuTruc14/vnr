@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.excludePattern" value="/assets/ckfinder/*" />
+	<include file="struts-default.xml" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="image" class="com.eposi.common.web.ImageBytesResult" />
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+            <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"/>
+		</result-types>
+		<interceptors>
+            <interceptor name="interceptorListStation" class="beanListStationInterceptor" />
+            <interceptor name="interceptorListStage" class="beanListStageInterceptor" />
+            <interceptor name="interceptorListTrainReference"   class="beanListTrainReferenceInterceptor" />
+            <interceptor name="interceptorListWorkbench" class="beanListWorkbenchInterceptor" />
+		</interceptors>
+        <default-interceptor-ref name="defaultStack"/>
+		<default-action-ref name="index" />
+		<action name="index" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success" type="tiles">welcome</result>
+		</action>
+		<action name="login" class="com.opensymphony.xwork2.ActionSupport">
+			<result name="success">/WEB-INF/html/login.jsp</result>
+		</action>
+	</package>
+
+    <package name="scheduling" namespace="/scheduling" extends="default">
+        <default-action-ref name="daily" />
+        <action name="daily" class="beanDailyAction" method="execute">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListWorkbench"/>
+            <result name="success" type="tiles">scheduling.daily</result>
+        </action>
+        <action name="daily.print" class="beanDailyAction" method="execute">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListWorkbench"/>
+            <result name="success" type="tiles">scheduling.daily.print</result>
+        </action>
+        <action name="daily.stop.update" class="beanDailyUpdateStopAction" method="execute">
+            <result name="success" type="redirectAction">
+                <param name="actionName">daily</param>
+                <param name="start">${start}</param>
+                <param name="end">${end}</param>
+                <param name="workbenchId">${workbenchId}</param>
+            </result>
+            <result name="error">/WEB-INF/html/scheduling/daily.stop.update.error.jsp</result>
+            <result name="input">/WEB-INF/html/scheduling/daily.stop.update.error.jsp</result>
+        </action>
+        <action name="detect.conflicts" class="beanDetectConflictsAction" method="execute">
+            <result name="success" type="tiles">scheduling.detect.conflicts</result>
+        </action>
+        <action name="data.demo.reset" class="beanResetDemoDataAction" method="execute">
+            <result name="success" type="redirectAction">
+                <param name="actionName">daily</param>
+            </result>
+        </action>
+        <action name="daily.addTrains" class="beanDailyAddTrainsAction" method="execute">
+            <result name="success" type="tiles">scheduling.daily.addTrains</result>
+        </action>
+        <action name="daily.addTrains.save" class="beanDailyAddTrainsSaveAction" method="execute">
+            <result name="success" type="tiles">scheduling.daily.addTrains.save</result>
+        </action>
+        <action name="daily.deleteTrains" class="beanDailyAddTrainsAction" method="execute">
+            <result name="success" type="tiles">scheduling.daily.deleteTrains</result>
+        </action>
+        <action name="daily.deleteTrains.save" class="beanDailyAddTrainsSaveAction" method="delete">
+            <result name="success" type="tiles">scheduling.daily.addTrains.save</result>
+        </action>
+
+
+        <action name="trainReference.listing" class="beanTrainReferenceIndexAction" method="execute">
+            <result name="success" type="tiles">scheduling.trainReference.listing</result>
+        </action>
+        <action name="trainReference.detail" class="beanTrainReferenceDetailAction" method="execute">
+            <result name="success" type="tiles">scheduling.trainReference.detail</result>
+        </action>
+        <action name="trainReference.add" class="beanTrainReferenceDetailAction" method="add">
+            <result name="success" type="tiles">scheduling.trainReference.add</result>
+        </action>
+        <action name="trainReference.edit" class="beanTrainReferenceDetailAction" method="edit">
+            <result name="success" type="tiles">scheduling.trainReference.edit</result>
+        </action>
+        <action name="trainReference.delete" class="beanTrainReferenceDetailAction" method="delete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">trainReference.listing</param>
+            </result>
+        </action>
+        <action name="stopReference.add" class="beanStopReferenceAction" method="execute">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListStation"/>
+            <result name="success" type="tiles">scheduling.stopReference.add</result>
+        </action>
+        <action name="stopReference.edit" class="beanStopReferenceAction" method="edit">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListStation"/>
+            <result name="success" type="tiles">scheduling.stopReference.edit</result>
+        </action>
+        <action name="stopReference.delete" class="beanStopReferenceAction" method="delete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">trainReference.detail</param>
+                <param name="id">${id}</param>
+            </result>
+
+        </action>
+
+    </package>
+
+    <package name="infrastructure" namespace="/infrastructure" extends="default">
+        <default-action-ref name="station" />
+        <action name="stations" class="beanStationAction" method="execute">
+            <result name="success" type="tiles">infrastructure.station</result>
+        </action>
+
+        <action name="station.edit" class="beanStationAction" method="edit">
+            <result name="success" type="tiles">infrastructure.station.edit</result>
+        </action>
+
+        <action name="station.addnew" class="beanStationAction" method="addnew">
+            <result name="success" type="tiles">infrastructure.station.addnew</result>
+        </action>
+
+        <action name="station.stages" class="beanStationStageAction" method="execute">
+            <result name="success" type="tiles">infrastructure.station_stages</result>
+        </action>
+
+        <action name="station.stage.add" class="beanStationStageAction" method="add">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListStation"/>
+            <interceptor-ref name="interceptorListStage"/>
+            <result name="success" type="tiles">infrastructure.station_stage.add</result>
+        </action>
+
+        <action name="station.stage.save" class="beanStationStageAction" method="add">
+            <result name="success" type="tiles">infrastructure.station_stage.add</result>
+        </action>
+
+        <action name="station.stage.edit" class="beanStationStageAction" method="edit">
+            <interceptor-ref name="defaultStack" />
+            <interceptor-ref name="interceptorListStation"/>
+            <interceptor-ref name="interceptorListStage"/>
+            <result name="success" type="tiles">infrastructure.station_stage.edit</result>
+        </action>
+
+        <action name="stages" class="beanStageAction" method="execute">
+            <result name="success" type="tiles">infrastructure.stages</result>
+        </action>
+
+        <action name="stage.detail" class="beanStageDetailAction" method="execute">
+            <result name="success" type="tiles">infrastructure.stage.detail</result>
+        </action>
+
+        <action name="stage.edit" class="beanStageAction" method="edit">
+            <result name="success" type="tiles">infrastructure.stage.edit</result>
+        </action>
+
+        <action name="stage.addnew" class="beanStageAction" method="addnew">
+            <result name="success" type="tiles">infrastructure.stage.addnew</result>
+        </action>
+
+    </package>
+</struts>

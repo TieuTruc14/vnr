@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:s="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- HTTP security configuration -->
+	<!--
+    <s:http pattern="/assets/**" security="none"/>
+    <s:http pattern="/login.action" security="none"/>
+    <s:http auto-config='true' use-expressions="true">
+        <s:intercept-url pattern="/report/overspeed.qlhc.vehicle.action" access="hasAnyRole('ROLE_COMPANY','ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/xmit.vehicle.action" access="hasAnyRole('ROLE_COMPANY','ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/overspeed.qlhc.company.action" access="hasAnyRole('ROLE_COMPANY','ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/xmit.company.action" access="hasAnyRole('ROLE_COMPANY','ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/overspeed.qlhc.province.action" access="hasAnyRole('ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/xmit.province.action" access="hasAnyRole('ROLE_PROVINCE','ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/overspeed.qlhc.nation.action" access="hasAnyRole('ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/report/xmit.provider.action" access="hasAnyRole('ROLE_NATION','ROLE_ADMIN')" />
+        <s:intercept-url pattern="/**" access="isAuthenticated()" />
+        <s:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <s:form-login login-page="/login.action?request_locale=vi_VN" default-target-url="/index.action" login-processing-url="/j_spring_security_check" always-use-default-target="false" />
+        <s:anonymous />
+        <s:logout />
+    </s:http>
+    <s:authentication-manager><s:authentication-provider user-service-ref="beanUfmsUserDetailsService" /></s:authentication-manager>
+    <bean id="beanUfmsUserDetailsService" class="com.eposi.ufms.security.UfmsUserDetailsService" scope="singleton" />
+	-->
+    <!--Interceptors-->
+    <bean id="beanListTrainReferenceInterceptor"   class="com.eposi.vnr.web.ListTrainReferenceInterceptor"   scope="prototype"/>
+    <bean id="beanListStationInterceptor" class="com.eposi.vnr.web.ListStationInterceptor" scope="prototype"/>
+    <bean id="beanListStageInterceptor" class="com.eposi.vnr.web.ListStageInterceptor" scope="prototype"/>
+    <bean id="beanListWorkbenchInterceptor" class="com.eposi.vnr.web.ListWorkbenchInterceptor" scope="prototype"/>
+
+	<!-- STRUTS2 ACTION -->
+    <bean id="beanDailyAction" class="com.eposi.vnr.web.scheduling.DailyAction" scope="prototype" init-method="init"/>
+    <bean id="beanDailyUpdateStopAction" class="com.eposi.vnr.web.scheduling.DailyUpdateStopAction" scope="prototype" />
+    <bean id="beanDetectConflictsAction" class="com.eposi.vnr.web.scheduling.DetectConflictsAction" scope="prototype" init-method="init" />
+    <bean id="beanResetDemoDataAction" class="com.eposi.vnr.web.scheduling.ResetDemoDataAction" scope="prototype" />
+    <bean id="beanDailyAddTrainsAction" class="com.eposi.vnr.web.scheduling.DailyAddTrainsAction" scope="prototype" />
+    <bean id="beanDailyAddTrainsSaveAction" class="com.eposi.vnr.web.scheduling.DailyAddTrainsSaveAction" scope="prototype" />
+
+
+    <bean id="beanStationStageAction" class="com.eposi.vnr.web.infrastructure.StationStageAction"     scope="prototype" />
+    <bean id="beanStationAction" class="com.eposi.vnr.web.infrastructure.StationAction" scope="prototype" />
+    <!--<bean id="beanSegmentAction" class="com.eposi.vnr.web.infrastructure.SegmentAction" scope="prototype" />-->
+    <!--<bean id="beanPlanAction" class="com.eposi.vnr.web.infrastructure.PlanAction"   scope="prototype" />-->
+    <bean id="beanStopAction" class="com.eposi.vnr.web.infrastructure.StopAction"   scope="prototype" />
+    <bean id="beanStageAction" class="com.eposi.vnr.web.infrastructure.StageAction" scope="prototype" />
+    <bean id="beanLabelAction" class="com.eposi.vnr.web.infrastructure.LabelAction" scope="prototype" />
+
+    <bean id="beanTrainReferenceDetailAction" class="com.eposi.vnr.web.scheduling.TrainReferenceDetailAction" scope="prototype" />
+    <bean id="beanTrainReferenceIndexAction" class="com.eposi.vnr.web.scheduling.TrainReferenceIndexAction" scope="prototype" />
+    <bean id="beanStageDetailAction" class="com.eposi.vnr.web.infrastructure.StageDetailAction" scope="prototype" />
+    <bean id="beanStopReferenceAction" class="com.eposi.vnr.web.scheduling.StopReferenceAction" scope="prototype" />
+	
+	<bean id="beanUpdatePlanTrain" class="com.eposi.vnr.data.DailyUpdatePlanTrain" scope="prototype" />
+    <bean id="beanSampleDataDemo" class="com.eposi.vnr.data.SampleDataDemo" scope="singleton"  destroy-method="shutdown" />
+    <bean id="beanCacheDB" class="com.eposi.vnr.service.CacheDB" scope="singleton"  init-method="init"/>
+	<!-- DAO -->
+	<bean id="beanVnrDao" class="com.eposi.vnr.persitence.VnrDao" scope="singleton" init-method="init"/>
+	<bean id="beanDaoUtil" class="com.eposi.common.persitence.DaoUtil" scope="singleton"/>
+	<bean id="beanHibernateUtil" class="com.eposi.common.persitence.HibernateUtil" scope="singleton" />
+
+    <!-- QUARTZ SCHEDULE -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="flushTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Flush Logging Files -->
+    <bean id="flushTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail">
+            <ref bean="runFlushJob" />
+        </property>
+        <property name="startDelay" value="0" />
+        <property name="repeatInterval" value="1000" />
+    </bean>
+
+    <bean id="runFlushJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="beanCacheDB" />
+        </property>
+        <property name="targetMethod" value="update" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <!--UpdateDB auto-->
+    <!-- QUARTZ SCHEDULE -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="flushDBTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Flush Logging Files -->
+    <bean id="flushDBTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail">
+            <ref bean="runFlushDBJob" />
+        </property>
+        <property name="startDelay" value="0" />
+        <property name="repeatInterval" value="1800000" />
+    </bean>
+
+    <bean id="runFlushDBJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="beanCacheDB" />
+        </property>
+        <property name="targetMethod" value="updateDB" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+	<!-- DATA SOURCE -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" scope="singleton">
+		<property name="dataSource"><ref local="dataSource" /></property>
+		<property name="hibernateProperties"><ref bean="hibernateProperties" /></property>
+		<property name="mappingResources">
+			<list>
+                <value>com/eposi/vnr/model/Station.hbm.xml</value>
+                <value>com/eposi/vnr/model/Stage.hbm.xml</value>
+                <value>com/eposi/vnr/model/StationStage.hbm.xml</value>
+                <value>com/eposi/vnr/model/TrainReference.hbm.xml</value>
+                <value>com/eposi/vnr/model/StopReference.hbm.xml</value>
+                <value>com/eposi/vnr/model/Train.hbm.xml</value>
+                <value>com/eposi/vnr/model/Stop.hbm.xml</value>
+                <value>com/eposi/vnr/model/Workbench.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" scope="singleton">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">${vnr.db.hibernate.dialect}</prop>
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size">1000</prop>
+				<prop key="hibernate.connection.useUnicode">true</prop>
+				<prop key="hibernate.connection.charSet">utf8</prop>
+				<prop key="hibernate.connection.characterEncoding">utf8</prop>
+				<prop key="hibernate.connection.autocommit">false</prop>
+				<prop key="hibernate.c3p0.minPoolSize">1</prop>
+				<prop key="hibernate.c3p0.maxPoolSize">200</prop>
+				<prop key="hibernate.c3p0.timeout">0</prop>
+				<prop key="hibernate.c3p0.max_statement">100</prop>
+				<prop key="hibernate.c3p0.idle_test_period">300</prop>
+				<prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
+				<prop key="hibernate.generate_statistics">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+                <prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="cache.use_minimal_puts">false</prop>
+                <prop key="hibernate.connection.schema">DB_VNR_VOC</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" scope="singleton">
+		<property name="driverClassName" value="${vnr.db.hibernate.driverClassName}" />
+		<property name="url" value="${vnr.db.url}" />
+		<property name="username" value="${vnr.db.username}" />
+		<property name="password" value="${vnr.db.password}" />
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="1" />
+		<property name="maxIdle" value="1" />
+		<property name="validationQuery" value="${vnr.db.validationQuery}" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+	
+	<!-- CONFIG -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="/WEB-INF/config.properties" />
+	</bean>
+</beans>
